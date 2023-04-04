@@ -6,7 +6,7 @@
 #include <voxine/thirdparty/include/GLAD/glad.h>
 #include <voxine/thirdparty/include/GLFW/glfw3.h>
 
-#include <voxine/shader.h>
+#include "shader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
