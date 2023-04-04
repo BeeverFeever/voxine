@@ -1,8 +1,10 @@
 set -xe
 
 CC="gcc"
-SOURCES="main.c shader.c"
-FLAGS="-Wall -Werror -pedantic"
-LINKER="-Llib -lm -lglad -lglfw"
+SOURCES=$(find -name '*.c')
+CFLAGS="-Wall"
+LD_FLAGS="-Lsrc/voxine/thirdparty/lib -lglfw3 -lglad -lm"
+INCLUDES="-Isrc"
+OUT_DIR="."
 
-$CC $SOURCES $FLAGS $LINKER -o main 
+$CC $SOURCES $CFLAGS -o $OUT_DIR/main $INCLUDES $LD_FLAGS 

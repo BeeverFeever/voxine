@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-L/home/beever/coding/voxine/src, -I/home/beever/coding/voxine/src, -Wall, -Wwarn]

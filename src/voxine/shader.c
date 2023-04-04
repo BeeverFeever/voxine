@@ -1,4 +1,4 @@
-#include "shader.h"
+#include <voxine/shader.h>
 
 static FILE* open_file(const char* path, const char* mode) {
     FILE* in = fopen(path, mode);
