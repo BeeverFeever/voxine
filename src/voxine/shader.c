@@ -1,6 +1,6 @@
 #include <voxine/shader.h>
 
-static FILE* open_file(const char* path, const char* mode) {
+static FILE* _open_file(const char* path, const char* mode) {
     FILE* in = fopen(path, mode);
     if (in == NULL) {
         fprintf(stderr, "ERROR: could not open %s\n%s", path, strerror(errno));
@@ -9,10 +9,14 @@ static FILE* open_file(const char* path, const char* mode) {
     return in;
 }
 
-static void read_file(char* buffer, const char* path) {
-    FILE* file = open_file(path, "r");
+static void _read_file(char* buffer, const char* path) {
+    FILE* file = _open_file(path, "r");
     char c;
     int i = 0;
+    fseek(file, 0, SEEK_END);
+    int length = ftell(file);
+    fseek(file, 0, SEEK_SET);
+    buffer = malloc(length * sizeof(char));
     while ((c = fgetc(file)) != EOF) {
         buffer[i] = c;
         i++;
@@ -23,7 +27,7 @@ static void read_file(char* buffer, const char* path) {
 vox_shader vox_load_shader(GLenum type, const char* path) {
     vox_shader shader = glCreateShader(type);
     char* source = 0;
-    read_file(source, path);
+    _read_file(source, path);
     glShaderSource(shader, 1, (const GLchar* const*)&source, NULL);
     glCompileShader(shader);
 
