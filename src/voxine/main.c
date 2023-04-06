@@ -18,8 +18,6 @@ void process_input(GLFWwindow* window) {
 }
 
 int main(void) {
-    vox_program shader_program = vox_shader_program("src/shaders/vertshader.glsl", "src/shaders/fragshader.glsl");
-
     if (!glfwInit()) {
         fprintf(stderr, "Failed to initialise GLFW\n");
         return EXIT_FAILURE;
@@ -81,13 +79,15 @@ int main(void) {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
+    vox_program shader_program = vox_create_program("src/shaders/vertshader.glsl", "src/shaders/fragshader.glsl");
+
     while (!glfwWindowShouldClose(window)) {
         process_input(window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shader_program);
+        vox_activate_program(shader_program);
 
         float timeValue = glfwGetTime();
         float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
@@ -101,6 +101,7 @@ int main(void) {
         glfwPollEvents();
     }
 
+    vox_free_program(shader_program);
     glfwTerminate();
     return EXIT_SUCCESS;
 }
