@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#include <voxine/thirdparty/include/GLAD/glad.h>
-#include <voxine/thirdparty/include/GLFW/glfw3.h>
+#include "thirdparty/include/GLAD/glad.h"
+#include "thirdparty/include/GLFW/glfw3.h"
 
 #include "shader.h"
 
@@ -56,7 +56,7 @@ int main(void) {
     unsigned int indices[] = {
         // 0, 1, 3,    // first triangle
         // 1, 2, 3,    // second triangle
-        2, 1, 4,
+        0, 1, 2,
     };
 
     unsigned int VAO;
@@ -76,10 +76,16 @@ int main(void) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    vox_program shader_program = vox_create_program("src/shaders/vertshader.glsl", "src/shaders/fragshader.glsl");
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    vox_program shader_program = vox_create_program("assets/shaders/vertshader.glsl", "assets/shaders/fragshader.glsl");
 
     while (!glfwWindowShouldClose(window)) {
         process_input(window);
@@ -89,11 +95,8 @@ int main(void) {
 
         vox_activate_program(shader_program);
 
-        float timeValue = glfwGetTime();
-        float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-        int vertexColorLocation = glGetUniformLocation(shader_program, "ourColor");
-        glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
-
+        vox_uniform_float(shader_program, "offset", 0.5);
+        
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 

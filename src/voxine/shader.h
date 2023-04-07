@@ -7,14 +7,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <voxine/thirdparty/include/GLAD/glad.h>
-#include "voxine/voxmath.h"
+#include "thirdparty/include/GLAD/glad.h"
+#include "voxmath.h"
 
 typedef GLuint vox_shader;
 typedef GLuint vox_program;
 
-vox_shader vox_load_shader(GLenum type, const char* path);
 vox_program vox_create_program(const char* vert_path, const char* frag_path);
+vox_shader vox_load_shader(GLenum type, const char* path);
 void vox_activate_program(vox_program program);
 void vox_free_program(vox_program program);
 

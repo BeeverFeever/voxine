@@ -1,4 +1,4 @@
-#include "./shader.h"
+#include <voxine/shader.h>
 
 static FILE* _open_file(const char* path, const char* mode) {
     FILE* in = fopen(path, mode);
@@ -45,7 +45,7 @@ vox_shader vox_load_shader(GLenum type, const char* path) {
     return shader;
 }
 
-vox_program vox_shader_program(const char* vert_path, const char* frag_path) {
+vox_program vox_create_program(const char* vert_path, const char* frag_path) {
     // create both shaders
     vox_shader vert = vox_load_shader(GL_VERTEX_SHADER, vert_path);
     vox_shader frag = vox_load_shader(GL_FRAGMENT_SHADER, frag_path);
@@ -71,7 +71,7 @@ vox_program vox_shader_program(const char* vert_path, const char* frag_path) {
     return program;
 }
 
-void vox_use_program(vox_program program) {
+void vox_activate_program(vox_program program) {
     glUseProgram(program);
 }
 
