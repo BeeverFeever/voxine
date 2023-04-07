@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 typedef union {
-    int32_t v[4];
+    float v[4];
     float x, y;
 } vox_fvec2;
 

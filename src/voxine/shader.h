@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "thirdparty/include/GLAD/glad.h"
-#include "voxmath.h"
+#include <voxine/thirdparty/include/GLAD/glad.h>
+#include <voxine/voxmath.h>
 
 typedef GLuint vox_shader;
 typedef GLuint vox_program;
