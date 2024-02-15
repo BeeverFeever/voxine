@@ -1,0 +1,11 @@
+#!/bin/sh
+set -xe
+
+CC="gcc"
+SOURCES=$(find . -type f -name *.c)
+CFLAGS="-Wall"
+LD_FLAGS="-Lthirdparty/lib -lglfw3 -lglad -lm"
+INCLUDES="-I."
+OUT_DIR="."
+
+$CC $SOURCES $CFLAGS -o $OUT_DIR/main $INCLUDES $LD_FLAGS 

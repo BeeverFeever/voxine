@@ -1,2 +1,3 @@
 CompileFlags:
-  Add: [-L/home/beever/coding/voxine/src, -I/home/beever/coding/voxine/src, -Wall, -Wwarn]
+  Add: [-L/home/beever/coding/voxine/, -I/home/beever/coding/voxine/, -Wall, -Wwarn]
+  Compiler: gcc
